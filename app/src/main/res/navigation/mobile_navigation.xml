@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/mobile_navigation"
+    app:startDestination="@+id/nav_home">
+
+    <fragment
+        android:id="@+id/nav_home"
+        android:name="com.project.pomodoro.ui.home.HomeFragment"
+        android:label="공부한 시간"
+        tools:layout="@layout/fragment_home" />
+    <fragment
+        android:id="@+id/nav_basicMode"
+        android:name="com.project.pomodoro.ui.basicMode.BasicModeFragment"
+        android:label="기본 모드"
+        tools:layout="@layout/fragment_basicmode" />
+    <fragment
+        android:id="@+id/nav_longFocus"
+        android:name="com.project.pomodoro.ui.longFocus.LongFocusFragment"
+        android:label="롱 포커스 모드"
+        tools:layout="@layout/fragment_long_focus" />
+    <fragment
+        android:id="@+id/nav_myCustom"
+        android:name="com.project.pomodoro.ui.myCustom.MyCustomPragment"
+        android:label="내 맞춤 모드"
+        tools:layout="@layout/fragment_my_custom" />
+    <fragment
+        android:id="@+id/nav_shortFocus"
+        android:name="com.project.pomodoro.ui.shortFocus.ShortFocusFragment"
+        android:label="짧은 집중 모드"
+        tools:layout="@layout/fragment_shortfocus" />
+    <fragment
+        android:id="@+id/nav_ultraFocus"
+        android:name="com.project.pomodoro.ui.ultraFocus.UltraFocusFragment"
+        android:label="울트라 포커스 모드"
+        tools:layout="@layout/fragment_ultra_focus" />
+
+</navigation>

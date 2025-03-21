@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:showIn="navigation_view">
+
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_home"
+            android:title="공부한 시간" />
+        <item
+            android:id="@+id/nav_shortFocus"
+            android:title="짧은 집중 모드" />
+        <item
+            android:id="@+id/nav_basicMode"
+            android:title="기본 모드" />
+        <item
+            android:id="@+id/nav_longFocus"
+            android:title="롱 포커스 모드" />
+        <item
+            android:id="@+id/nav_ultraFocus"
+            android:title="울트라 포커스 모드" />
+        <item
+            android:id="@+id/nav_myCustom"
+            android:title="내 맞춤 모드" />
+
+    </group>
+</menu>

@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name">PocusPom</string>
+    <string name="title_activity_main2">MainActivity2</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="nav_header_title">끝까지 가는 것이 아니라, 계속 가는 것이다.</string>
+    <string name="nav_header_subtitle">- 알베르트 아인슈타인</string>
+    <string name="nav_header_desc">Navigation header</string>
+
+
+</resources>
