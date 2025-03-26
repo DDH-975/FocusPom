@@ -7,6 +7,8 @@ android {
     namespace = "com.project.pomodoro"
     compileSdk = 35
 
+    viewBinding.isEnabled = true
+
     defaultConfig {
         applicationId = "com.project.pomodoro"
         minSdk = 29
