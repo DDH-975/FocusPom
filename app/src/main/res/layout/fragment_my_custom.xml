@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="#C2E6E4"
     tools:context=".ui.myCustom.MyCustomPragment">
 
@@ -14,8 +14,15 @@
         android:layout_marginStart="15dp"
         android:layout_marginTop="25dp"
         android:layout_marginEnd="15dp"
+        android:background="@drawable/rect_border"
+        android:elevation="4dp"
         android:fontFamily="@font/jua"
         android:gravity="center"
+        android:paddingTop="5dp"
+        android:paddingBottom="5dp"
+        android:shadowColor="#000000"
+        android:shadowDx="2"
+        android:shadowDy="2"
         android:text="공부 시간과 휴식 시간을 자유롭게\n 조정할 수 있는 맞춤형 모드입니다."
         android:textColor="@color/black"
         android:textSize="22sp"
@@ -25,41 +32,45 @@
         app:layout_constraintTop_toTopOf="parent" />
 
 
-    <Chronometer
-        android:id="@+id/chrono_StudyTime"
+    <TextView
+        android:id="@+id/tv_studyText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="15dp"
-        android:layout_marginTop="70dp"
+        android:layout_marginTop="50dp"
         android:layout_marginEnd="15dp"
         android:background="@drawable/rect_border"
         android:fontFamily="@font/jua"
         android:gravity="center"
         android:paddingTop="5dp"
         android:paddingBottom="5dp"
+        android:text="00:00"
+        android:textColor="@color/black"
         android:textSize="43sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tv_title"></Chronometer>
+        app:layout_constraintTop_toBottomOf="@+id/tv_title"></TextView>
 
-    <Chronometer
-        android:id="@+id/chrono_BreakTime"
+    <TextView
+        android:id="@+id/tv_breakText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="15dp"
-        android:layout_marginTop="180dp"
+        android:layout_marginTop="165dp"
         android:layout_marginEnd="15dp"
         android:background="@drawable/rect_border"
         android:fontFamily="@font/jua"
         android:gravity="center"
         android:paddingTop="5dp"
         android:paddingBottom="5dp"
+        android:text="00:00"
+        android:textColor="@color/black"
         android:textSize="35sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tv_title"></Chronometer>
+        app:layout_constraintTop_toBottomOf="@+id/tv_title"></TextView>
 
     <TextView
         android:id="@+id/textView4"
@@ -69,8 +80,8 @@
         android:text="공부시간"
         android:textColor="@color/black"
         android:textSize="20sp"
-        app:layout_constraintBottom_toTopOf="@+id/chrono_StudyTime"
-        app:layout_constraintStart_toStartOf="@+id/chrono_StudyTime" />
+        app:layout_constraintBottom_toTopOf="@+id/tv_studyText"
+        app:layout_constraintStart_toStartOf="@+id/tv_studyText" />
 
     <TextView
         android:id="@+id/textView5"
@@ -80,24 +91,25 @@
         android:text="휴식시간"
         android:textColor="@color/black"
         android:textSize="20sp"
-        app:layout_constraintBottom_toTopOf="@+id/chrono_BreakTime"
-        app:layout_constraintStart_toStartOf="@+id/chrono_BreakTime" />
+        app:layout_constraintBottom_toTopOf="@+id/tv_breakText"
+        app:layout_constraintStart_toStartOf="@+id/tv_breakText" />
 
     <Button
         android:id="@+id/btn_start"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="20dp"
-        android:layout_marginTop="110dp"
+        android:layout_marginTop="130dp"
         android:layout_marginEnd="20dp"
         android:background="@drawable/rect_border"
         android:fontFamily="@font/jua"
+        android:enabled="false"
         android:text="공부 시작하기"
-        android:textColor="#0000ff"
+        android:textColor="@color/startstudybuttoncolor"
         android:textSize="16sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/chrono_BreakTime" />
+        app:layout_constraintTop_toBottomOf="@+id/tv_breakText" />
 
     <Button
         android:id="@+id/btn_pause"
@@ -105,10 +117,11 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
         android:layout_marginEnd="15dp"
-        android:fontFamily="@font/jua"
-        android:textSize="16sp"
         android:background="@drawable/rect_border"
+        android:enabled="false"
+        android:fontFamily="@font/jua"
         android:text="일시정지"
+        android:textSize="16sp"
         app:layout_constraintEnd_toStartOf="@+id/btn_continue"
         app:layout_constraintStart_toStartOf="@+id/btn_start"
         app:layout_constraintTop_toBottomOf="@+id/btn_start" />
@@ -118,10 +131,11 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
-        android:fontFamily="@font/jua"
-        android:textSize="16sp"
         android:background="@drawable/rect_border"
+        android:enabled="false"
+        android:fontFamily="@font/jua"
         android:text="계속"
+        android:textSize="16sp"
         app:layout_constraintEnd_toEndOf="@+id/btn_start"
         app:layout_constraintStart_toEndOf="@+id/btn_pause"
         app:layout_constraintTop_toBottomOf="@+id/btn_start" />
@@ -130,40 +144,55 @@
         android:id="@+id/btn_stop"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:fontFamily="@font/jua"
-        android:textSize="16sp"
+        android:layout_marginTop="15dp"
         android:background="@drawable/rect_border"
-        android:textColor="#ff0000"
+        android:enabled="false"
+        android:fontFamily="@font/jua"
         android:text="공부 그만하기"
+        android:textColor="@color/stopstudybuttoncolor"
+        android:textSize="16sp"
         app:layout_constraintEnd_toEndOf="@+id/btn_continue"
         app:layout_constraintStart_toStartOf="@+id/btn_pause"
         app:layout_constraintTop_toBottomOf="@+id/btn_pause" />
 
     <EditText
-        android:id="@+id/editTextText"
+        android:id="@+id/et_studyTime"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="20dp"
-        android:layout_marginTop="30dp"
+        android:layout_marginTop="15dp"
         android:layout_marginEnd="20dp"
         android:ems="10"
-        android:hint="공부시간(분) 입력"
+        android:hint="공부시간(분)"
         android:inputType="number"
-        app:layout_constraintEnd_toStartOf="@+id/editTextText2"
+        app:layout_constraintEnd_toStartOf="@+id/et_beakTime"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/chrono_BreakTime" />
+        app:layout_constraintTop_toBottomOf="@+id/tv_breakText" />
+
 
     <EditText
-        android:id="@+id/editTextText2"
+        android:id="@+id/et_beakTime"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginEnd="20dp"
         android:ems="10"
-        android:hint="휴식시간(분) 입력"
+        android:hint="휴식시간(분)"
         android:inputType="number"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/editTextText"
-        app:layout_constraintTop_toTopOf="@+id/editTextText" />
+        app:layout_constraintStart_toEndOf="@+id/et_studyTime"
+        app:layout_constraintTop_toTopOf="@+id/et_studyTime" />
+
+    <Button
+        android:id="@+id/btn_input"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="10dp"
+        android:background="@drawable/rect_border"
+        android:fontFamily="@font/jua"
+        android:textSize="16sp"
+        android:text="입력 완료"
+        app:layout_constraintBottom_toTopOf="@+id/btn_start"
+        app:layout_constraintEnd_toEndOf="@+id/btn_start"
+        app:layout_constraintStart_toStartOf="@+id/btn_start" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
