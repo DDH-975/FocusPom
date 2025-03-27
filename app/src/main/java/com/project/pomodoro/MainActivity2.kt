@@ -1,6 +1,9 @@
 package com.project.pomodoro
 
+import android.content.Context
+import android.os.Build
 import android.os.Bundle
+import android.os.VibratorManager
 import androidx.appcompat.app.AppCompatActivity
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.navigation.findNavController
