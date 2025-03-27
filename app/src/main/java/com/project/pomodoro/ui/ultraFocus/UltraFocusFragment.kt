@@ -1,6 +1,10 @@
 package com.project.pomodoro.ui.ultraFocus
 
+import android.content.Context
+import android.os.Build
 import android.os.Bundle
+import android.os.Vibrator
+import android.os.VibratorManager
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -14,8 +18,6 @@ class UltraFocusFragment : Fragment() {
     private var _binding: FragmentUltraFocusBinding? = null
     private lateinit var setTimer: SetPomodoroTimer
     private var isFirstClick: Boolean = true
-
-
     private val binding get() = _binding!!
 
 
@@ -29,15 +31,22 @@ class UltraFocusFragment : Fragment() {
         _binding = FragmentUltraFocusBinding.inflate(inflater, container, false)
         val root: View = binding.root
 
+        val vibrator = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
+            val vibratorManager = requireContext().getSystemService(Context.VIBRATOR_MANAGER_SERVICE) as VibratorManager
+            vibratorManager.defaultVibrator
+
+        } else {
+            requireContext().getSystemService(Context.VIBRATOR_SERVICE) as Vibrator
+        }
+
         setTimer = SetPomodoroTimer(
             90, 20, binding.tvStudyText,
-            binding.tvBreakText
+            binding.tvBreakText, vibrator
         )
 
         binding.btnStart.setOnClickListener {
             binding.btnStart.isEnabled = false
-            binding.btnStop.isEnabled = true
-            binding.btnPause.isEnabled = true
+            listOf(binding.btnStop, binding.btnPause).forEach { it.isEnabled = true }
 
             setTimer.startTimer()
         }
@@ -65,12 +74,11 @@ class UltraFocusFragment : Fragment() {
             } else {
                 Toast.makeText(context, "수고하셨습니다. 내일도 뵈요!", Toast.LENGTH_SHORT).show()
                 setTimer.resetTimer()
-                binding.btnStart.isEnabled = true
-                binding.btnPause.isEnabled = false
-                binding.btnContinue.isEnabled = false
-                binding.btnStop.isEnabled = false
-                isFirstClick = true
 
+                listOf(binding.btnPause, binding.btnContinue, binding.btnStop).forEach { it.isEnabled = false }
+                binding.btnStart.isEnabled = true
+
+                isFirstClick = true
             }
         }
 
