@@ -85,12 +85,13 @@ class SetPomodoroTimer(
         startTimer()
     }
 
-    fun resetTimer() {
+    fun resetTimer(): Int {
         totalStudyTime = cycle * studyTime + (studyTime - minutes.toInt())
         Log.i(
             "checkValues", "cycle : ${cycle}, \n " +
                     "studyTime : ${studyTime}, minutes : ${minutes}, totalStudyTime : ${totalStudyTime}"
         )
+
         studyTimer?.cancel()
         breakTimer?.cancel()
         remainingStudyTime = 0L
@@ -99,6 +100,8 @@ class SetPomodoroTimer(
         breakTextView.text = "${breakTime}:00"
         studyTextView.text = "${studyTime}:00"
         cycle = 0
+
+        return totalStudyTime
 
     }
 
@@ -120,6 +123,7 @@ class SetPomodoroTimer(
             vibrator.vibrate(500)
         }
     }
+
 }
 
 
