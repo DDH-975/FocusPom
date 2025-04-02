@@ -6,7 +6,7 @@
     <group android:checkableBehavior="single">
         <item
             android:id="@+id/nav_home"
-            android:title="📅️ 공부한 시간" />
+            android:title="📅️ 공부 통계" />
         <item
             android:id="@+id/nav_shortFocus"
             android:title="⏱️ 짧은 집중 모드" />
