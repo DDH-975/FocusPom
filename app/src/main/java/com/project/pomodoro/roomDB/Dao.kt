@@ -20,6 +20,14 @@ interface StudySessionDao {
     @Query("delete from study_session")
     suspend fun deleteAllDataBySession()
 
+    @Query(
+        "select studyDate, sum(studyTime) as totalStudyTime " +
+                "from study_session " +
+                "group by studyDate " +
+                "order by studyDate"
+    )
+    suspend fun getDataGroupByDate(): List<StudyDateTotalStudyTime>?
+
 }
 
 
@@ -32,6 +40,10 @@ interface StudySummaryDao {
     @Query("delete from study_summary")
     suspend fun deleteAllDataBySummary()
 
+    @Query("select totalStudyTime from study_summary where id = 1")
+    suspend fun getTotalTime(): Int?
+
+
     @Insert
     suspend fun insertStudySummary(studySummary: StudySummary)
 
@@ -41,10 +53,10 @@ interface StudySummaryDao {
     suspend fun addStudyTime(time: Int, modeType: String) {
         var currentData = getAllData()
 
-        if(currentData == null){
+        if (currentData == null) {
 
             //데이터가 없을경우 각 튜블 데이터 0으로 초기화
-            currentData = StudySummary(1,0,0,0,0,0,0)
+            currentData = StudySummary(1, 0, 0, 0, 0, 0, 0)
             insertStudySummary(currentData)
         }
 
