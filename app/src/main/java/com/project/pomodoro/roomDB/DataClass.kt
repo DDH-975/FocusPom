@@ -26,3 +26,11 @@ data class StudySummary(
     var coustomMode: Int = 0
 )
 
+// 쿼리(select studyDate, sum(studyTime) as totalStudyTime
+//     from study_session
+//     group by studyDate) 결과 데이터 클래스
+data class StudyDateTotalStudyTime(
+    var studyDate: String,
+    var totalStudyTime: Int
+)
+
