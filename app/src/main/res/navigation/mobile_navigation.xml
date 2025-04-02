@@ -8,7 +8,7 @@
     <fragment
         android:id="@+id/nav_home"
         android:name="com.project.pomodoro.ui.home.HomeFragment"
-        android:label="📅️ 공부한 시간"
+        android:label="📅️ 공부 통계"
         tools:layout="@layout/fragment_home" />
     <fragment
         android:id="@+id/nav_basicMode"
