@@ -158,7 +158,12 @@ class HomeFragment : Fragment() {
                         setDrawValues(true)
                         valueFormatter = object : ValueFormatter() {
                             override fun getPointLabel(entry: Entry?): String {
-                                return "${entry?.y?.toInt()}분"
+                                var value = entry?.y?.toInt()
+
+                                var hour = value!!/60
+                                var minutes = value!!%60
+
+                                return "${hour}시간 ${minutes}분"
                             }
                         }
                     }
@@ -193,12 +198,12 @@ class HomeFragment : Fragment() {
                     binding.lineChart.apply {
                         description.isEnabled = false
                         legend.isEnabled = true
-                        setTouchEnabled(true) // 터치 활성화
-                        setPinchZoom(true) // 줌 가능
+                        setTouchEnabled(false) // 터치 비활성화
+                        setPinchZoom(false) // 줌 기능 비활성화
                         extraLeftOffset = 15f
                         extraRightOffset = 15f
 
-                        setExtraOffsets(20f, 10f, 20f, 10f)
+                        setExtraOffsets(30f, 10f, 30f, 10f)
 
                         animateX(1000)
                         animateY(1000)
@@ -297,9 +302,11 @@ class HomeFragment : Fragment() {
                         setDrawValues(true)
                         valueTextColor = Color.BLACK
                         valueTextSize = 15f
-                        valueFormatter = object : ValueFormatter() { //  바 끝에 '분' 표시
+                        valueFormatter = object : ValueFormatter() { //  바 끝에 '시, 분' 표시
                             override fun getFormattedValue(value: Float): String {
-                                return "${value.toInt()}분"
+                                var hour = value/60
+                                var minutes = value%60
+                                return "${hour.toInt()}시간 ${minutes.toInt()}분"
                             }
                         }
                     }
