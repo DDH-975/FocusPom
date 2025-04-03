@@ -11,7 +11,6 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import com.project.pomodoro.SetPomodoroTimer
 import com.project.pomodoro.databinding.FragmentLongFocusBinding
@@ -48,7 +47,6 @@ class LongFocusFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        val longFocusViewModel = ViewModelProvider(this).get(LongFocusViewModel::class.java)
         _binding = FragmentLongFocusBinding.inflate(inflater, container, false)
         val root: View = binding.root
 

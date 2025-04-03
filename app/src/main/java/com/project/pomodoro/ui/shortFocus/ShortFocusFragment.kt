@@ -11,7 +11,6 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import com.project.pomodoro.SetPomodoroTimer
 import com.project.pomodoro.databinding.FragmentShortfocusBinding
@@ -49,9 +48,6 @@ class ShortFocusFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        val shortFocusViewModel =
-            ViewModelProvider(this).get(ShortFocusViewModel::class.java)
-
         _binding = FragmentShortfocusBinding.inflate(inflater, container, false)
         val root: View = binding.root
 
