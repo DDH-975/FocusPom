@@ -33,7 +33,7 @@
 
 - **언어 (Languages)**: Kotlin, XML
 - **도구 (Tools)**: Android Studio
-- **라이브러리 (Libraries)**: Android SDK, Room, [MPAndroidChart](https://github.com/PhilJay/MPAndroidChart)
+- **라이브러리 (Libraries)**: Android SDK, Room, ✨[MPAndroidChart](https://github.com/PhilJay/MPAndroidChart)✨
 
 - **기술 적용**:
   - **DrawerLayout** : 사이드 메뉴를 통해 통계 페이지 및 다른 화면으로 쉽게 이동할 수 있도록 네비게이션 구성.
