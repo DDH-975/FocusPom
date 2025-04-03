@@ -39,6 +39,8 @@
   - **DrawerLayout** : 사이드 메뉴를 통해 통계 페이지 및 다른 화면으로 쉽게 이동할 수 있도록 네비게이션 구성.
   - **Room** : 로컬 데이터베이스를 활용하여 사용자의 공부 기록 및 통계 저장.
   - **[MPAndroidChart](https://github.com/PhilJay/MPAndroidChart)** : 공부 시간을 효과적으로 분석할 수 있도록 **파이 차트(Pie Chart), 바 차트(Bar Chart), 라인 차트(Line Chart)** 를 활용해 시각화
+  - **코루틴 (Coroutines)**: 비동기 작업 최적화
+    - `suspend fun`, `withContext`, `launch`를 활용하여 데이터베이스 작업 처리.
 <br> <br>
 
 
