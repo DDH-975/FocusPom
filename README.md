@@ -33,11 +33,12 @@
 
 - **언어 (Languages)**: Kotlin, XML
 - **도구 (Tools)**: Android Studio
-- **라이브러리 (Libraries)**: Android SDK, Room, MPAndroidChart
+- **라이브러리 (Libraries)**: Android SDK, Room, [MPAndroidChart](https://github.com/PhilJay/MPAndroidChart)
+
 - **기술 적용**:
-  - **DrawerLayout**: 사이드 메뉴를 통해 통계 페이지 및 다른 화면으로 쉽게 이동할 수 있도록 네비게이션 구성.
-  - **Room**: 로컬 데이터베이스를 활용하여 사용자의 공부 기록 및 통계 저장.
-  - **MPAndroidChart**: 공부 시간을 효과적으로 분석할 수 있도록 **파이 차트(Pie Chart), 바 차트(Bar Chart), 라인 차트(Line Chart)** 를 활용해 시각화
+  - **DrawerLayout** : 사이드 메뉴를 통해 통계 페이지 및 다른 화면으로 쉽게 이동할 수 있도록 네비게이션 구성.
+  - **Room** : 로컬 데이터베이스를 활용하여 사용자의 공부 기록 및 통계 저장.
+  - **[MPAndroidChart](https://github.com/PhilJay/MPAndroidChart)** : 공부 시간을 효과적으로 분석할 수 있도록 **파이 차트(Pie Chart), 바 차트(Bar Chart), 라인 차트(Line Chart)** 를 활용해 시각화
 <br> <br>
 
 
