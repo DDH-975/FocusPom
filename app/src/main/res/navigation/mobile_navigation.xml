@@ -23,7 +23,7 @@
     <fragment
         android:id="@+id/nav_myCustom"
         android:name="com.project.pomodoro.ui.myCustom.MyCustomPragment"
-        android:label="🛠️ 내 맞춤 모드"
+        android:label="🛠️ 커스텀 모드"
         tools:layout="@layout/fragment_my_custom" />
     <fragment
         android:id="@+id/nav_shortFocus"

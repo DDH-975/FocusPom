@@ -21,7 +21,7 @@
             android:title="🔥 울트라 포커스 모드" />
         <item
             android:id="@+id/nav_myCustom"
-            android:title="🛠️ 내 맞춤 모드" />
+            android:title="🛠️ 커스텀 모드" />
 
     </group>
 </menu>
