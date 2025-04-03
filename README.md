@@ -29,7 +29,7 @@
 
 
 <br> <br>
-## 기술 스택
+## 🛠️ 기술 스택
 
 - **언어 (Languages)**: Kotlin, XML
 - **도구 (Tools)**: Android Studio
