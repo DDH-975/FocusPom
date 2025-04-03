@@ -8,15 +8,18 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.core.content.ContextCompat
 import androidx.core.view.isInvisible
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import com.github.mikephil.charting.animation.Easing
 import com.github.mikephil.charting.components.XAxis
 import com.github.mikephil.charting.data.BarData
 import com.github.mikephil.charting.data.BarDataSet
 import com.github.mikephil.charting.data.BarEntry
+import com.github.mikephil.charting.data.Entry
+import com.github.mikephil.charting.data.LineData
+import com.github.mikephil.charting.data.LineDataSet
 import com.github.mikephil.charting.data.PieData
 import com.github.mikephil.charting.data.PieDataSet
 import com.github.mikephil.charting.data.PieEntry
@@ -24,6 +27,7 @@ import com.github.mikephil.charting.formatter.PercentFormatter
 import com.github.mikephil.charting.formatter.ValueFormatter
 import com.github.mikephil.charting.utils.ColorTemplate
 import com.github.mikephil.charting.utils.ColorTemplate.COLORFUL_COLORS
+import com.project.pomodoro.R
 import com.project.pomodoro.databinding.FragmentHomeBinding
 import com.project.pomodoro.roomDB.DataBase
 import com.project.pomodoro.roomDB.StudySessionDao
@@ -31,6 +35,7 @@ import com.project.pomodoro.roomDB.StudySummaryDao
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import kotlin.math.min
 
 
 class HomeFragment : Fragment() {
@@ -55,13 +60,8 @@ class HomeFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        val homeViewModel =
-            ViewModelProvider(this).get(HomeViewModel::class.java)
-
         _binding = FragmentHomeBinding.inflate(inflater, container, false)
         val root: View = binding.root
-
-
 
         setTotalTextView()
         setPieChart()
@@ -73,11 +73,11 @@ class HomeFragment : Fragment() {
         binding.btnDeleteData.setOnClickListener {
             if (isFirstClick) {
                 Toast.makeText(
-                    context, "초기화하면 이전 상태로 복구할 수 없습니다. 진행하려면 한 번 더 클릭해주세요. ",
+                    context, "초기화하면 이전 상태로 복구할 수 없습니다. 진행하려면 한 번 더 클릭해주세요.",
                     Toast.LENGTH_LONG
                 ).show()
 
-                isFirstClick == true
+                isFirstClick = false
 
             } else {
                 lifecycleScope.launch(Dispatchers.IO) {
@@ -87,10 +87,18 @@ class HomeFragment : Fragment() {
                     studySessionDao.deleteAllDataBySession()
                     studySummaryDao.deleteAllDataBySummary()
 
-                    isFirstClick == false
+                    isFirstClick = true
 
                     withContext(Dispatchers.Main) {
                         Toast.makeText(context, "초기화 되었습니다", Toast.LENGTH_SHORT).show()
+
+                        //프래그먼트 리로드
+                        val fragmentManager = requireActivity().supportFragmentManager
+                        fragmentManager.beginTransaction().apply {
+                            replace(R.id.nav_host_fragment_content_main, HomeFragment())
+                            addToBackStack(null)
+                            commit()
+                        }
                     }
                 }
 
@@ -107,19 +115,103 @@ class HomeFragment : Fragment() {
     }
 
 
-    //LineChart 세팅
+    // LineChart 세팅
     private fun setLineChart() {
         lifecycleScope.launch(Dispatchers.IO) {
             studySessionDao = db.studySessionDao()
-
             val totalStudyTimeByDate = studySessionDao.getDataGroupByDate()
 
-            Log.d("getDataGroupByDate()","${totalStudyTimeByDate}")
-            withContext(Dispatchers.Main){
+            Log.d("getDataGroupByDate()", "${totalStudyTimeByDate}")
 
+            withContext(Dispatchers.Main) {
+                if (totalStudyTimeByDate != null) {
+                    var entries = mutableListOf<Entry>()
+                    var date = mutableListOf<String>()
+                    var index: Float
+
+                    for (i in 0..totalStudyTimeByDate!!.size - 1) {
+                        index = i.toFloat()
+                        entries.add(
+                            Entry(
+                                index,
+                                totalStudyTimeByDate.get(i).totalStudyTime.toFloat()
+                            )
+                        )
+                        date.add(totalStudyTimeByDate.get(i).studyDate)
+                    }
+
+                    val dataSet = LineDataSet(entries, "공부 시간(분)").apply {
+                        color = Color.BLUE
+                        valueTextColor = Color.BLACK
+                        lineWidth = 3f
+                        circleRadius = 6f
+                        valueTextSize = 12f
+                        setDrawCircleHole(false)
+                        setCircleColor(Color.RED)
+
+                        // 그래디언트 효과 추가
+                        setDrawFilled(true)
+                        fillDrawable =
+                            ContextCompat.getDrawable(requireContext(), R.drawable.chart_gradient)
+
+                        // 강조 효과 (값이 클수록 진하게)
+                        setDrawValues(true)
+                        valueFormatter = object : ValueFormatter() {
+                            override fun getPointLabel(entry: Entry?): String {
+                                return "${entry?.y?.toInt()}분"
+                            }
+                        }
+                    }
+
+                    val lineData = LineData(dataSet)
+                    binding.lineChart.data = lineData
+
+                    // X축 설정 (날짜 표시)
+                    binding.lineChart.xAxis.apply {
+                        position = XAxis.XAxisPosition.BOTTOM
+                        setDrawGridLines(false)
+                        setLabelCount(min(7, date.size), true)
+                        textColor = Color.BLACK
+                        granularity = 1f
+                        setAvoidFirstLastClipping(true)
+                        valueFormatter = object : ValueFormatter() {
+                            override fun getFormattedValue(value: Float): String {
+                                return if (value >= 0 && value < date.size) date[value.toInt()] else ""
+                            }
+                        }
+                    }
+
+                    // Y축 설정
+                    binding.lineChart.axisLeft.apply {
+                        setDrawGridLines(true)
+                        setDrawLabels(false)  // Y축 라벨 활성화
+                        textColor = Color.BLACK
+                    }
+                    binding.lineChart.axisRight.isEnabled = false
+
+                    // 차트 스타일 설정
+                    binding.lineChart.apply {
+                        description.isEnabled = false
+                        legend.isEnabled = true
+                        setTouchEnabled(true) // 터치 활성화
+                        setPinchZoom(true) // 줌 가능
+                        extraLeftOffset = 15f
+                        extraRightOffset = 15f
+
+                        setExtraOffsets(20f, 10f, 20f, 10f)
+
+                        animateX(1000)
+                        animateY(1000)
+                    }
+
+                    // 업데이트 반영
+                    binding.lineChart.invalidate()
+                } else {
+                    binding.tvNoData1.isInvisible = false
+                    binding.lineChart.isInvisible = true
+                }
             }
         }
-
     }
 
 
@@ -127,11 +219,12 @@ class HomeFragment : Fragment() {
     private fun setPieChart() {
         lifecycleScope.launch(Dispatchers.IO) {
             studySummaryDao = db.studySummaryDao()
-
             val summaryData = studySummaryDao.getAllData()
+            Log.d("asdfasdsafd", "${summaryData}")
 
             withContext(Dispatchers.Main) {
-                if(studySummaryDao != null){
+                if (summaryData != null) {
+
                     // data set
                     val entries = ArrayList<PieEntry>()
                     entries.add(PieEntry(summaryData.coustomMode.toFloat(), "커스텀"))
@@ -172,14 +265,13 @@ class HomeFragment : Fragment() {
                         animateY(1400, Easing.EaseInOutQuad)
                         animate()
                     }
-                }else{
+                } else {
                     binding.tvNoData2.isInvisible = false
                     binding.pieChart.isInvisible = true
                 }
             }
         }
     }
-
 
 
     //수직 바 차트 설정
@@ -225,14 +317,14 @@ class HomeFragment : Fragment() {
                         setTouchEnabled(false)
                         animateY(1400)
 
-                        // **X축 설정 (왼쪽에 모드 이름 추가)**
+
                         xAxis.apply {
                             valueFormatter = object : ValueFormatter() {
                                 override fun getFormattedValue(value: Float): String {
                                     return barLabels.getOrNull(value.toInt()) ?: value.toString()
                                 }
                             }
-                            position = XAxis.XAxisPosition.BOTTOM //  X축을 차트 왼쪽(아래쪽)으로 배치
+                            position = XAxis.XAxisPosition.BOTTOM //  X축을 차트 아래쪽 배치
                             textSize = 14f
                             textColor = Color.BLACK
                             granularity = 1f
@@ -247,14 +339,12 @@ class HomeFragment : Fragment() {
                         invalidate()
                     }
                 } else {
-                    binding.tvNoData2.isInvisible = false
-                    binding.pieChart.isInvisible = true
+                    binding.tvNoData3.isInvisible = false
+                    binding.BarChart.isInvisible = true
                 }
             }
         }
     }
-
-
 
 
     //총 공부 시간 출력
@@ -272,7 +362,7 @@ class HomeFragment : Fragment() {
                         val minutes = time % 60
                         binding.tvTotalStudyTime.text = "총 공부 시간 : ${hours}시간 ${minutes}분"
                     } ?: run {
-                        binding.tvTotalStudyTime.text = "공부시간이 없습니다."
+                        binding.tvTotalStudyTime.text = "데이터가 없습니다."
                     }
                 }
             }
