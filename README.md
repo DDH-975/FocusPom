@@ -88,11 +88,12 @@
     <th>커스텀 모드</th>
   </tr>
   <tr>
-    <td><img src="screenshot/basicgif.gif" width="220"/></td>
-    <td><img src="screenshot/customgif.gif" width="220"/></td>
+    <td><img src="screenshot/basicgif.gif" width="230"/></td>
+    <td><img src="screenshot/customgif.gif" width="230"/></td>
   </tr>
 </table>
-<br>
+※ 실행 흐름을 확인할 수 있도록, 실제 앱 실행 장면을 녹화하고 필요 없는 부분을 잘라내어 GIF로 편집했습니다. <br>실제 사용 흐름을 간단하게 보여주기 위한 참고 영상입니다.
+<br> <br>
 
 ### 📊 공부 통계 화면
 <img src="screenshot/statistics.gif" alt="App Demo" width="250">
