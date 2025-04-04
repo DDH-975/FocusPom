@@ -44,7 +44,7 @@
     - `suspend fun`, `withContext`, `launch`를 활용하여 데이터베이스 작업 처리.
 <br> <br> <br>
 
-## 📊 MPAndroidChart 
+## 📊 [MPAndroidChart](https://github.com/PhilJay/MPAndroidChart)
 
 이번 프로젝트에서 가장 신경 쓴 부분은 **공부 데이터를 효과적으로 시각화하는 것**이었습니다.  
 이를 위해 **MPAndroidChart** 라이브러리를 활용하여 **파이 차트(Pie Chart), 바 차트(Bar Chart), 라인 차트(Line Chart)** 를 구현하였습니다.
