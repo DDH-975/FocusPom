@@ -41,7 +41,21 @@
   - **[MPAndroidChart](https://github.com/PhilJay/MPAndroidChart)** : 공부 시간을 효과적으로 분석할 수 있도록 **파이 차트(Pie Chart), 바 차트(Bar Chart), 라인 차트(Line Chart)** 를 활용해 시각화
   - **코루틴 (Coroutines)**: 비동기 작업 최적화
     - `suspend fun`, `withContext`, `launch`를 활용하여 데이터베이스 작업 처리.
-<br> <br>
+<br> <br> <br>
+
+## 📊 MPAndroidChart 
+
+이번 프로젝트에서 가장 신경 쓴 부분은 **공부 데이터를 효과적으로 시각화하는 것**이었습니다.  
+이를 위해 **MPAndroidChart** 라이브러리를 활용하여 **파이 차트(Pie Chart), 바 차트(Bar Chart), 라인 차트(Line Chart)** 를 구현하였습니다.
+
+### ✨ 사용한 차트 종류  
+- **📌 파이 차트 (Pie Chart)** → 모드별 공부 시간 비율 표시  
+- **📌 바 차트 (Bar Chart)** → 각 모드별 총 공부 시간 비교  
+- **📌 라인 차트 (Line Chart)** → 날짜별 공부 시간 변화 추이  
+
+### 📌 예제 코드 (파이 차트)
+
+
 
 
 ## 실행 화면 (Screenshots & GIFs)
