@@ -88,8 +88,8 @@
     <th>커스텀 모드</th>
   </tr>
   <tr>
-    <td><img src="screenshot/basicgif.gif" width="230"/></td>
-    <td><img src="screenshot/customgif.gif" width="230"/></td>
+    <td><img src="screenshot/basicgif.gif" width="225"/></td>
+    <td><img src="screenshot/customgif.gif" width="225"/></td>
   </tr>
 </table>
 ※ 실행 흐름을 확인할 수 있도록, 실제 앱 실행 장면을 녹화하고 필요 없는 부분을 잘라내어 GIF로 편집했습니다. <br>실제 사용 흐름을 간단하게 보여주기 위한 참고 영상입니다.
