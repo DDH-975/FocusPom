@@ -42,12 +42,12 @@
   - **[MPAndroidChart](https://github.com/PhilJay/MPAndroidChart)** : 공부 시간을 효과적으로 분석할 수 있도록 **파이 차트(Pie Chart), 바 차트(Bar Chart), 라인 차트(Line Chart)** 를 활용해 시각화
   - **코루틴 (Coroutines)**: 비동기 작업 최적화
     - `suspend fun`, `withContext`, `launch`를 활용하여 데이터베이스 작업 처리.
-<br> <br> <br>
+<br> <br> 
 
 ## 📊 [MPAndroidChart](https://github.com/PhilJay/MPAndroidChart)
 
-이번 프로젝트에서 가장 고민했던 부분은 **공부 데이터를 어떻게 효과적으로 시각화할 것인가**였습니다.
-시각화 방법에 대한 아이디어를 얻기 위해 다양한 자료를 검색하던 중 **MPAndroidChart 라이브러리**를 알게 되었고, 이를 활용해 직관적인 통계 화면을 구현할 수 있었습니다.
+이번 프로젝트에서 가장 고민했던 부분은 **공부 데이터를 어떻게 효과적으로 시각화할 것인가**였습니다. <br>
+시각화 방법에 대한 아이디어를 얻기 위해 다양한 자료를 검색하던 중 **MPAndroidChart 라이브러리**를 알게 되었고, 이를 활용해 직관적인 통계 화면을 구현할 수 있었습니다.<br>
 **MPAndroidChart**를 활용하여 파이 **차트(Pie Chart)**, **바 차트(Bar Chart)**, **라인 차트(Line Chart)** 를 구현하였으며, 각 차트는 사용자 학습 데이터를 시각적으로 이해하기 쉽게 표현하도록 구성했습니다.
 
 ### ✨ 사용한 차트 종류  
