@@ -88,8 +88,8 @@
     <th>커스텀 모드</th>
   </tr>
   <tr>
-    <td><img src="screenshot/" width="220"/></td>
-    <td><img src="screenshot/" width="220"/></td>
+    <td><img src="screenshot/basicgif.gif" width="220"/></td>
+    <td><img src="screenshot/customgif.gif" width="220"/></td>
   </tr>
 </table>
 <br>
