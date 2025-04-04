@@ -57,11 +57,11 @@
     <th>커스텀 모드</th>
   </tr>
   <tr>
-    <td><img src="screenshot/short.png" width="200"/></td>
-    <td><img src="screenshot/basic.png" width="200"/></td>
-    <td><img src="screenshot/long.png" width="200"/></td>
-    <td><img src="screenshot/ultra.png" width="200"/></td>
-    <td><img src="screenshot/custom.png" width="200"/></td>
+    <td><img src="screenshot/short.png" width="220"/></td>
+    <td><img src="screenshot/basic.png" width="220"/></td>
+    <td><img src="screenshot/long.png" width="220"/></td>
+    <td><img src="screenshot/ultra.png" width="220"/></td>
+    <td><img src="screenshot/custom.png" width="220"/></td>
   </tr>
 </table>
 
