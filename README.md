@@ -1,4 +1,5 @@
 # Project name : FocusPom (Focus🧠 + Pomodoro🍅)
+<br>
 
 ## 프로젝트를 진행 하게된 계기
 저는 평소 **포모도로(Pomodoro) 기법**을 활용해 공부하거나 프로젝트를 진행하는 편입니다.
@@ -41,19 +42,152 @@
   - **[MPAndroidChart](https://github.com/PhilJay/MPAndroidChart)** : 공부 시간을 효과적으로 분석할 수 있도록 **파이 차트(Pie Chart), 바 차트(Bar Chart), 라인 차트(Line Chart)** 를 활용해 시각화
   - **코루틴 (Coroutines)**: 비동기 작업 최적화
     - `suspend fun`, `withContext`, `launch`를 활용하여 데이터베이스 작업 처리.
-<br> <br> <br>
+<br> <br> 
 
-## 📊 MPAndroidChart 
+## 📊 [MPAndroidChart](https://github.com/PhilJay/MPAndroidChart)
 
-이번 프로젝트에서 가장 신경 쓴 부분은 **공부 데이터를 효과적으로 시각화하는 것**이었습니다.  
-이를 위해 **MPAndroidChart** 라이브러리를 활용하여 **파이 차트(Pie Chart), 바 차트(Bar Chart), 라인 차트(Line Chart)** 를 구현하였습니다.
+이번 프로젝트에서 가장 고민했던 부분은 **공부 데이터를 어떻게 효과적으로 시각화할 것인가**였습니다. <br>
+시각화 방법에 대한 아이디어를 얻기 위해 다양한 자료를 검색하던 중 **MPAndroidChart 라이브러리**를 알게 되었고, 이를 활용해 직관적인 통계 화면을 구현할 수 있었습니다.<br>
+**MPAndroidChart**를 활용하여 파이 **차트(Pie Chart)**, **바 차트(Bar Chart)**, **라인 차트(Line Chart)** 를 구현하였으며, 각 차트는 사용자 학습 데이터를 시각적으로 이해하기 쉽게 표현하도록 구성했습니다.
 
 ### ✨ 사용한 차트 종류  
 - **📌 파이 차트 (Pie Chart)** → 모드별 공부 시간 비율 표시  
 - **📌 바 차트 (Bar Chart)** → 각 모드별 총 공부 시간 비교  
-- **📌 라인 차트 (Line Chart)** → 날짜별 공부 시간 변화 추이  
+- **📌 라인 차트 (Line Chart)** → 요일별 공부 시간 변화 추이  
 
 ### 📌 예제 코드 (파이 차트)
+```kotlin
+private fun setPieChart() {
+    val entries = listOf(
+        PieEntry(25f, "기본"),
+        PieEntry(15f, "짧은 집중"),
+        PieEntry(50f, "롱 포커스"),
+        PieEntry(90f, "울트라"),
+        PieEntry(30f, "커스텀")
+    )
+
+    val pieDataSet = PieDataSet(entries, "").apply {
+        colors = ColorTemplate.MATERIAL_COLORS.toList()
+        valueTextColor = Color.BLACK
+        valueTextSize = 16f
+        valueFormatter = PercentFormatter(pieChart)
+    }
+
+    val pieData = PieData(pieDataSet)
+
+    pieChart.apply {
+        data = pieData
+        setUsePercentValues(true)
+        setEntryLabelColor(Color.BLACK)
+        setCenterText("모드별 비율")
+        setCenterTextSize(18f)
+        description.isEnabled = false
+        isRotationEnabled = false
+        animateY(1000, Easing.EaseInOutQuad)
+    }
+}
+```
+### 📌 예제 코드 (바 차트)
+```kotlin
+private fun setBarChart() {
+    val values = listOf(
+        BarEntry(0f, 120f),  // 기본: 2시간
+        BarEntry(1f, 75f),   // 롱 포커스: 1시간 15분
+        BarEntry(2f, 40f),   // 커스텀
+        BarEntry(3f, 25f),   // 짧은 집중
+        BarEntry(4f, 90f)    // 울트라
+    )
+
+    val labels = listOf("기본", "롱 포커스", "커스텀", "짧은 집중", "울트라")
+
+    val barDataSet = BarDataSet(values, "").apply {
+        setColors(ColorTemplate.JOYFUL_COLORS, 250)
+        valueTextSize = 14f
+        valueFormatter = object : ValueFormatter() {
+            override fun getFormattedValue(value: Float): String {
+                val h = value.toInt() / 60
+                val m = value.toInt() % 60
+                return "${h}시간 ${m}분"
+            }
+        }
+    }
+
+    val barData = BarData(barDataSet).apply {
+        barWidth = 0.5f
+    }
+
+    barChart.apply {
+        data = barData
+        description.isEnabled = false
+        setFitBars(true)
+        legend.isEnabled = false
+        animateY(1000)
+
+        xAxis.apply {
+            valueFormatter = IndexAxisValueFormatter(labels)
+            position = XAxis.XAxisPosition.BOTTOM
+            granularity = 1f
+            textSize = 14f
+        }
+
+        axisLeft.isEnabled = false
+        axisRight.isEnabled = false
+    }
+}
+```
+### 📌 예제 코드 (라인 차트)
+```kotlin
+private fun setLineChart() {
+    val entries = listOf(
+        Entry(0f, 90f),
+        Entry(1f, 45f),
+        Entry(2f, 120f),
+        Entry(3f, 60f)
+    )
+    val labels = listOf("03/28", "03/29", "03/30", "03/31")
+
+    val dataSet = LineDataSet(entries, "공부 시간(분)").apply {
+        color = Color.BLUE
+        circleRadius = 6f
+        lineWidth = 3f
+        setDrawValues(true)
+        setDrawCircleHole(false)
+        setCircleColor(Color.RED)
+
+        // 그래디언트 채우기
+        setDrawFilled(true)
+        fillDrawable = ContextCompat.getDrawable(context, R.drawable.chart_gradient)
+
+        valueFormatter = object : ValueFormatter() {
+            override fun getPointLabel(entry: Entry?): String {
+                val total = entry?.y?.toInt() ?: 0
+                val h = total / 60
+                val m = total % 60
+                return "${h}시간 ${m}분"
+            }
+        }
+    }
+
+    val lineData = LineData(dataSet)
+
+    lineChart.apply {
+        data = lineData
+        description.isEnabled = false
+        legend.isEnabled = false
+        animateX(1000)
+
+        xAxis.apply {
+            position = XAxis.XAxisPosition.BOTTOM
+            granularity = 1f
+            valueFormatter = IndexAxisValueFormatter(labels)
+            textSize = 12f
+        }
+
+        axisLeft.setDrawLabels(false)
+        axisRight.isEnabled = false
+    }
+}
+```
 
 
 
@@ -88,11 +222,12 @@
     <th>커스텀 모드</th>
   </tr>
   <tr>
-    <td><img src="screenshot/" width="220"/></td>
-    <td><img src="screenshot/" width="220"/></td>
+    <td><img src="screenshot/basicgif.gif" width="225"/></td>
+    <td><img src="screenshot/customgif.gif" width="225"/></td>
   </tr>
 </table>
-<br>
+※ 실행 흐름을 확인할 수 있도록, 실제 앱 실행 장면을 녹화하고 필요 없는 부분을 잘라내어 GIF로 편집했습니다. <br>실제 사용 흐름을 간단하게 보여주기 위한 참고 영상입니다.
+<br> <br>
 
 ### 📊 공부 통계 화면
 <img src="screenshot/statistics.gif" alt="App Demo" width="250">
