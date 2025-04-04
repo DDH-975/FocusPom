@@ -54,6 +54,138 @@
 - **📌 라인 차트 (Line Chart)** → 요일별 공부 시간 변화 추이  
 
 ### 📌 예제 코드 (파이 차트)
+```kotlin
+private fun setPieChart() {
+    val entries = listOf(
+        PieEntry(25f, "기본"),
+        PieEntry(15f, "짧은 집중"),
+        PieEntry(50f, "롱 포커스"),
+        PieEntry(90f, "울트라"),
+        PieEntry(30f, "커스텀")
+    )
+
+    val pieDataSet = PieDataSet(entries, "").apply {
+        colors = ColorTemplate.MATERIAL_COLORS.toList()
+        valueTextColor = Color.BLACK
+        valueTextSize = 16f
+        valueFormatter = PercentFormatter(pieChart)
+    }
+
+    val pieData = PieData(pieDataSet)
+
+    pieChart.apply {
+        data = pieData
+        setUsePercentValues(true)
+        setEntryLabelColor(Color.BLACK)
+        setCenterText("모드별 비율")
+        setCenterTextSize(18f)
+        description.isEnabled = false
+        isRotationEnabled = false
+        animateY(1000, Easing.EaseInOutQuad)
+    }
+}
+```
+### 📌 예제 코드 (바 차트)
+```kotlin
+private fun setBarChart() {
+    val values = listOf(
+        BarEntry(0f, 120f),  // 기본: 2시간
+        BarEntry(1f, 75f),   // 롱 포커스: 1시간 15분
+        BarEntry(2f, 40f),   // 커스텀
+        BarEntry(3f, 25f),   // 짧은 집중
+        BarEntry(4f, 90f)    // 울트라
+    )
+
+    val labels = listOf("기본", "롱 포커스", "커스텀", "짧은 집중", "울트라")
+
+    val barDataSet = BarDataSet(values, "").apply {
+        setColors(ColorTemplate.JOYFUL_COLORS, 250)
+        valueTextSize = 14f
+        valueFormatter = object : ValueFormatter() {
+            override fun getFormattedValue(value: Float): String {
+                val h = value.toInt() / 60
+                val m = value.toInt() % 60
+                return "${h}시간 ${m}분"
+            }
+        }
+    }
+
+    val barData = BarData(barDataSet).apply {
+        barWidth = 0.5f
+    }
+
+    barChart.apply {
+        data = barData
+        description.isEnabled = false
+        setFitBars(true)
+        legend.isEnabled = false
+        animateY(1000)
+
+        xAxis.apply {
+            valueFormatter = IndexAxisValueFormatter(labels)
+            position = XAxis.XAxisPosition.BOTTOM
+            granularity = 1f
+            textSize = 14f
+        }
+
+        axisLeft.isEnabled = false
+        axisRight.isEnabled = false
+    }
+}
+```
+### 📌 예제 코드 (라인 차트)
+```kotlin
+private fun setLineChart() {
+    val entries = listOf(
+        Entry(0f, 90f),
+        Entry(1f, 45f),
+        Entry(2f, 120f),
+        Entry(3f, 60f)
+    )
+    val labels = listOf("03/28", "03/29", "03/30", "03/31")
+
+    val dataSet = LineDataSet(entries, "공부 시간(분)").apply {
+        color = Color.BLUE
+        circleRadius = 6f
+        lineWidth = 3f
+        setDrawValues(true)
+        setDrawCircleHole(false)
+        setCircleColor(Color.RED)
+
+        // 그래디언트 채우기
+        setDrawFilled(true)
+        fillDrawable = ContextCompat.getDrawable(context, R.drawable.chart_gradient)
+
+        valueFormatter = object : ValueFormatter() {
+            override fun getPointLabel(entry: Entry?): String {
+                val total = entry?.y?.toInt() ?: 0
+                val h = total / 60
+                val m = total % 60
+                return "${h}시간 ${m}분"
+            }
+        }
+    }
+
+    val lineData = LineData(dataSet)
+
+    lineChart.apply {
+        data = lineData
+        description.isEnabled = false
+        legend.isEnabled = false
+        animateX(1000)
+
+        xAxis.apply {
+            position = XAxis.XAxisPosition.BOTTOM
+            granularity = 1f
+            valueFormatter = IndexAxisValueFormatter(labels)
+            textSize = 12f
+        }
+
+        axisLeft.setDrawLabels(false)
+        axisRight.isEnabled = false
+    }
+}
+```
 
 
 
