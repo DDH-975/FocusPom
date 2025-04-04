@@ -74,7 +74,7 @@
 <br>
 
 ### 📊 공부 통계 화면
-
+<img src="screenshot/statistics.gif" alt="App Demo" width="250">
   
 
 
