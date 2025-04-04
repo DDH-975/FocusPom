@@ -1,4 +1,5 @@
 # Project name : FocusPom (Focus🧠 + Pomodoro🍅)
+<br>
 
 ## 프로젝트를 진행 하게된 계기
 저는 평소 **포모도로(Pomodoro) 기법**을 활용해 공부하거나 프로젝트를 진행하는 편입니다.
